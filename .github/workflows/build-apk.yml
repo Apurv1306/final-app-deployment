@@ -22,6 +22,7 @@ jobs:
     - name: Install Buildozer and dependencies
       run: |
         sudo apt update
+        # Install core build tools including autoconf, libtool, pkg-config
         sudo apt install -y git zip unzip autoconf libtool pkg-config build-essential openjdk-11-jdk python3-pip
         # Additional dependencies for python-for-android and OpenCV
         sudo apt install -y libssl-dev libffi-dev zlib1g-dev libncurses5-dev liblzma-dev
