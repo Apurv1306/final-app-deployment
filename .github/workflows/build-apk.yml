@@ -27,6 +27,7 @@ jobs:
         sudo apt install -y libssl-dev libffi-dev zlib1g-dev libncurses5-dev liblzma-dev
         pip install --upgrade pip setuptools
         pip install buildozer
+        pip install cython # Added Cython installation
 
     - name: Configure Buildozer environment variables
       # Buildozer needs to pick up these env vars for the Android build process.
