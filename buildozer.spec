@@ -4,10 +4,10 @@
 title = FaceApp Attendance
 
 # (str) Package name. Use a reverse domain name unique to your app.
-package.name = com.yourcompany.faceappattendance # IMPORTANT: Change 'yourcompany' to your actual domain or a unique identifier.
+package.name = com.yourcompany.faceappattendance
 
 # (str) Package domain (used with package.name to create unique identifier)
-package.domain = yourcompany.com # IMPORTANT: Change 'yourcompany' to your actual domain.
+package.domain = yourcompany.com
 
 # (list) Application requirements
 # List all Python packages from your requirements.txt.
@@ -40,7 +40,8 @@ android.api = 34
 android.minapi = 21
 
 # (str) The Android arch to build for
-android.arch = armeabi-v7a # Good default for most devices. Can add 'arm64-v8a' for 64-bit devices: 'armeabi-v7a,arm64-v8a'
+android.arch = armeabi-v7a
+# Good default for most devices. Can add 'arm64-v8a' for 64-bit devices: 'armeabi-v7a,arm64-v8a'
 
 # (str) Bootstrap to use for android builds.
 # THIS IS THE KEY PART FOR YOUR WEBVIEW APP
@@ -52,7 +53,7 @@ p4a.port = 5000
 
 # (str) The command to run when the app starts
 # This will execute your Flask app's entry point
-application.cmd = python "python app.py" # IMPORTANT: Use the full filename "python app.py"
+application.cmd = python "python app.py"
 
 # (str) The URL that the webview will load
 # This points to your local Flask server running inside the app
