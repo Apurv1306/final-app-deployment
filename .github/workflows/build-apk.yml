@@ -12,23 +12,23 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v4
+      uses: actions:checkout@v4
 
     - name: Set up Python
-      uses: actions/setup-python@v5
+      uses: actions:setup-python@v5
       with:
         python-version: '3.9' # Use a Python version compatible with Buildozer and your app
 
     - name: Install Buildozer and dependencies
       run: |
-        sudo apt update --fix-missing # Added --fix-missing to update
-        # Install core build tools including autoconf, automake, libtool, pkg-config
-        sudo apt install -y git zip unzip autoconf automake libtool pkg-config build-essential openjdk-11-jdk python3-pip
+        sudo apt update --fix-missing
+        # Install core build tools including autoconf, automake, libtool, pkg-config, and libtool-bin
+        sudo apt install -y git zip unzip autoconf automake libtool pkg-config libtool-bin build-essential openjdk-11-jdk python3-pip
         # Additional dependencies for python-for-android and OpenCV
         sudo apt install -y libssl-dev libffi-dev zlib1g-dev libncurses5-dev liblzma-dev
         pip install --upgrade pip setuptools
         pip install buildozer
-        pip install cython # Added Cython installation
+        pip install cython
 
     - name: Configure Buildozer environment variables
       # Buildozer needs to pick up these env vars for the Android build process.
@@ -50,7 +50,7 @@ jobs:
         FACEAPP_ADMIN_EMAIL: ${{ secrets.FACEAPP_ADMIN_EMAIL }}
 
     - name: Upload APK artifact
-      uses: actions/upload-artifact@v4
+      uses: actions:upload-artifact@v4
       with:
         name: faceapp-attendance-apk
         path: bin/*.apk # Path to the generated APK file
