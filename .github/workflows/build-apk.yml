@@ -22,14 +22,14 @@ jobs:
     - name: Install Buildozer and dependencies
       run: |
         sudo apt update --fix-missing
-        # Install core build tools including git, autoconf, automake, libtool, pkg-config, and libtool-bin
-        sudo apt install -y git zip unzip autoconf automake libtool pkg-config libtool-bin build-essential openjdk-11-jdk python3-pip
+        # Install core build tools including git, autoconf, automake, libtool, pkg-config, libtool-bin
+        # Added m4, gettext, and patchelf for more robust build environment
+        sudo apt install -y git zip unzip autoconf automake libtool pkg-config libtool-bin build-essential openjdk-11-jdk python3-pip m4 gettext patchelf
         # Additional dependencies for python-for-android and OpenCV
         sudo apt install -y libssl-dev libffi-dev zlib1g-dev libncurses5-dev liblzma-dev
         pip install --upgrade pip setuptools
         pip install buildozer
         pip install cython
-        # Removed: pip install python-for-android (Buildozer manages this internally)
 
     - name: Configure Buildozer environment variables
       # Buildozer needs to pick up these env vars for the Android build process.
@@ -38,10 +38,6 @@ jobs:
         sed -i "s|__ENV_FACEAPP_EMAIL__|${{ secrets.FACEAPP_EMAIL }}|g" buildozer.spec
         sed -i "s|__ENV_FACEAPP_PASS__|${{ secrets.FACEAPP_PASS }}|g" buildozer.spec
         sed -i "s|__ENV_FACEAPP_ADMIN_EMAIL__|${{ secrets.FACEAPP_ADMIN_EMAIL }}|g" buildozer.spec
-
-    # Removed: - name: Clean previous Buildozer build artifacts
-    # Removed:   run: |
-    # Removed:     buildozer android clean
 
     - name: Build Android Debug APK
       run: |
