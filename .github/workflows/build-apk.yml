@@ -54,3 +54,4 @@ jobs:
       with:
         name: faceapp-attendance-apk
         path: bin/*.apk # Path to the generated APK file
+ 
