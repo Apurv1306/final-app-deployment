@@ -44,23 +44,8 @@ jobs:
         sed -i "s|__ENV_FACEAPP_PASS__|${{ secrets.FACEAPP_PASS }}|g" buildozer.spec
         sed -i "s|__ENV_FACEAPP_ADMIN_EMAIL__|${{ secrets.FACEAPP_ADMIN_EMAIL }}|g" buildozer.spec
 
-    - name: Run libtoolize
-      # This step is crucial for fixing 'LT_SYS_SYMBOL_USCORE' errors
-      # It ensures libtool's macros are correctly generated and available for autoconf
-      run: |
-        # Navigate to the python-for-android directory where configure.ac is located
-        # This path might vary slightly, but it's usually within .buildozer/android/platform/python-for-android
-        # We'll try a common path, if this fails, the exact path from the error log might be needed.
-        P4A_DIR=$(find .buildozer/android/platform -name "python-for-android" -type d -print -quit)
-        if [ -d "$P4A_DIR" ]; then
-          echo "Found python-for-android directory: $P4A_DIR"
-          pushd "$P4A_DIR"
-          libtoolize --force --copy || echo "libtoolize failed, but continuing build attempt."
-          popd
-        else
-          echo "python-for-android directory not found. Skipping libtoolize."
-        fi
-
+    # Removed the 'Run libtoolize' step as it was causing FileNotFoundError.
+    # Buildozer handles the setup of python-for-android internally.
 
     - name: Build Android Debug APK
       run: |
