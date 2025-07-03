@@ -1,0 +1,54 @@
+name: Build Android APK
+
+on:
+  push:
+    branches:
+      - main # Trigger on pushes to the main branch
+  workflow_dispatch: # Allows manual trigger from GitHub Actions tab
+
+jobs:
+  build_apk:
+    runs-on: ubuntu-latest # Use a Linux environment for Buildozer
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.9' # Use a Python version compatible with Buildozer and your app
+
+    - name: Install Buildozer and dependencies
+      run: |
+        sudo apt update
+        sudo apt install -y git zip unzip autoconf libtool pkg-config build-essential openjdk-11-jdk python3-pip
+        # Additional dependencies for python-for-android and OpenCV
+        sudo apt install -y libssl-dev libffi-dev zlib1g-dev libncurses5-dev liblzma-dev
+        pip install --upgrade pip setuptools
+        pip install buildozer
+
+    - name: Configure Buildozer environment variables
+      # Buildozer needs to pick up these env vars for the Android build process.
+      # We replace placeholders in buildozer.spec with actual secrets.
+      run: |
+        sed -i "s|__ENV_FACEAPP_EMAIL__|${{ secrets.FACEAPP_EMAIL }}|g" buildozer.spec
+        sed -i "s|__ENV_FACEAPP_PASS__|${{ secrets.FACEAPP_PASS }}|g" buildozer.spec
+        sed -i "s|__ENV_FACEAPP_ADMIN_EMAIL__|${{ secrets.FACEAPP_ADMIN_EMAIL }}|g" buildozer.spec
+
+    - name: Build Android Debug APK
+      run: |
+        buildozer android debug
+      env:
+        # Pass secrets as environment variables to Buildozer command if needed,
+        # though `android.env_vars` in buildozer.spec is the primary way for the app itself.
+        # This is more for buildozer's internal use if it needs them during compilation.
+        FACEAPP_EMAIL: ${{ secrets.FACEAPP_EMAIL }}
+        FACEAPP_PASS: ${{ secrets.FACEAPP_PASS }}
+        FACEAPP_ADMIN_EMAIL: ${{ secrets.FACEAPP_ADMIN_EMAIL }}
+
+    - name: Upload APK artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: faceapp-attendance-apk
+        path: bin/*.apk # Path to the generated APK file
