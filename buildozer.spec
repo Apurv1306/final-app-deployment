@@ -70,6 +70,13 @@ android.env_vars = \
     FACEAPP_PASS=__ENV_FACEAPP_PASS__,\
     FACEAPP_ADMIN_EMAIL=__ENV_FACEAPP_ADMIN_EMAIL__
 
+# (str) Specific NDK version to use. This can help with compilation issues.
+# 'r25c' is a commonly used stable version.
+android.ndk = 25c
+
+# (int) NDK API level to compile against. Changed from 21 to 30 for better compatibility.
+android.ndk_api = 30
+
 # Optional: App icon and presplash (loading screen)
 # Create these files in your project root if you want custom ones.
 #icon.filename = %(source.dir)s/icon.png
