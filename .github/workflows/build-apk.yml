@@ -23,10 +23,14 @@ jobs:
       run: |
         sudo apt update --fix-missing
         # Install core build tools including git, autoconf, automake, libtool, pkg-config, libtool-bin
-        # Added m4, gettext, and patchelf for more robust build environment
-        sudo apt install -y git zip unzip autoconf automake libtool pkg-config libtool-bin build-essential openjdk-11-jdk python3-pip m4 gettext patchelf
-        # Additional dependencies for python-for-android and OpenCV
-        sudo apt install -y libssl-dev libffi-dev zlib1g-dev libncurses5-dev liblzma-dev
+        # Added m4, gettext, patchelf, and a more comprehensive set of OpenCV/scientific computing dependencies
+        sudo apt install -y git zip unzip autoconf automake libtool pkg-config libtool-bin build-essential openjdk-11-jdk python3-pip m4 gettext patchelf \
+           cmake \
+           libpng-dev libjpeg-dev libtiff-dev \
+           gfortran \
+           libhdf5-dev libhdf5-serial-dev \
+           libssl-dev libffi-dev zlib1g-dev libncurses5-dev liblzma-dev
+
         pip install --upgrade pip setuptools
         pip install buildozer
         pip install cython
