@@ -29,8 +29,7 @@ jobs:
         pip install --upgrade pip setuptools
         pip install buildozer
         pip install cython
-        # Explicitly install python-for-android to ensure it's available
-        pip install python-for-android
+        # Removed: pip install python-for-android (Buildozer manages this internally)
 
     - name: Configure Buildozer environment variables
       # Buildozer needs to pick up these env vars for the Android build process.
@@ -40,9 +39,9 @@ jobs:
         sed -i "s|__ENV_FACEAPP_PASS__|${{ secrets.FACEAPP_PASS }}|g" buildozer.spec
         sed -i "s|__ENV_FACEAPP_ADMIN_EMAIL__|${{ secrets.FACEAPP_ADMIN_EMAIL }}|g" buildozer.spec
 
-    - name: Clean previous Buildozer build artifacts
-      run: |
-        buildozer android clean
+    # Removed: - name: Clean previous Buildozer build artifacts
+    # Removed:   run: |
+    # Removed:     buildozer android clean
 
     - name: Build Android Debug APK
       run: |
